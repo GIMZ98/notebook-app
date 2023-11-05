@@ -1,4 +1,4 @@
-var Notedb = require('../models/note.js');
+var Notedb = require('../models/note.cjs');
 
 // creates a new note
 exports.handler = async (req,res)=>{

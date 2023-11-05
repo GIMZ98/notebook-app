@@ -1,4 +1,4 @@
-var Userdb = require('../models/user.js');
+var Userdb = require('../models/user.cjs');
 const argon2 = require('argon2');
 
 const hashPassword = async(password) => {

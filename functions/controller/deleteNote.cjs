@@ -1,4 +1,4 @@
-var Notedb = require('../models/note.js');
+var Notedb = require('../models/note.cjs');
 
 exports.handler = (req,res)=>{
     const id = req.params.id;
