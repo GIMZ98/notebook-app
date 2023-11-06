@@ -17,7 +17,7 @@ exports.handler = async (event, context)=>{
             const id = queryStringParameters["id"];
     
             const data = await Notedb.find({ userId:id });
-            if(!data){
+            if(data==[]){
                 return{
                     statusCode: 404,
                     body: JSON.stringify({message: "No notes for user with id: "+ id})
