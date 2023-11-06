@@ -1,31 +1,44 @@
 var Notedb = require('./models/note.cjs');
+const { connect, close } = require('./database/connection.cjs')
 
-// creates a new note
-exports.handler = async (req,res)=>{
-    //validate request
-    if(!req.body){
-        res.status(400).send({message: "Content can not be empty!"});
-        return;
+exports.handler = async (event, context)=>{
+    try{
+        await connect()
+        var { httpMethod, path, body, queryStringParameters} = event;
+
+        if (httpMethod != 'POST'){
+            return{
+                statusCode: 500,
+                body: JSON.stringify({message: "Wrong method"})
+            }  
+        }
+
+        const note = new Notedb({
+            userId:body["userId"],
+            title:body["title"],
+            content:body["content"],
+        })
+    
+        //save note in the database
+        note
+            .save(note)
+            .then(data=>{
+                //res.send(data)
+                console.log("note saved", data)
+                return{
+                    statusCode: 200,
+                    body: JSON.stringify(data)
+                } 
+            })
+            .catch(err=>{
+                return{
+                    statusCode: 200,
+                    body: JSON.stringify(data)
+                } 
+            });
+    }
+    finally{
+        await close()
     }
 
-    //new note
-    const note = new Notedb({
-        userId:req.body.userId,
-        title:req.body.title,
-        content:req.body.content,
-    })
-
-    //save note in the database
-    note
-        .save(note)
-        .then(data=>{
-            //res.send(data)
-			console.log("note saved", data)
-            res.status(200).send(data)
-        })
-        .catch(err=>{
-            res.status(500).send({
-                message:"Error saving note"
-            });
-        });
 }
