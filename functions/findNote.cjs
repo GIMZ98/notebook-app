@@ -1,5 +1,5 @@
 var Notedb = require('./models/note.cjs');
-const { connect, close } = require('./database/connection')
+const { connect, close } = require('./database/connection.cjs')
 
 exports.handler = async (event, context)=>{
     try{
