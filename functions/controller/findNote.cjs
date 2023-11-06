@@ -23,9 +23,16 @@ exports.handler = async (event, context)=>{
         // }  
     }
     else{
-        const data = Notedb.find()
+        var data = ''
+        
+        try{
+          data = Notedb.find()
+        }
+        catch(err){
+          console.log("Err: ", err)
+        }
 
-        if(!data){
+        if(!data==''){
             return{
                 statusCode: 500,
                 body: JSON.stringify({message: "Error retrieving data"})
