@@ -28,7 +28,7 @@ exports.handler = async (event, context)=>{
             var data = ''
             
             try{
-              data = await Notedb.find()
+              data = await Notedb.find();
 
               if(data==''){
                 return{
@@ -43,7 +43,10 @@ exports.handler = async (event, context)=>{
     
 
     
-            return data; 
+            return {
+                statusCode: 200,
+                body: JSON.stringify(data)
+            } 
             
         }
     }
