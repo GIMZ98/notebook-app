@@ -34,7 +34,7 @@ exports.handler = async (event, context)=>{
 
     return{
         statusCode: 200,
-        body: JSON.stringify({httpMethod: httpMethod, path: path, body: body, event: event})
+        body: JSON.stringify({httpMethod: httpMethod, path: path, body: body, query: event.rawQuery.id})
     }  
 
 
