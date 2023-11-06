@@ -23,13 +23,13 @@ exports.handler = async (event, context)=>{
             const data = await note.save(note);
             return{
                 statusCode: 200,
-                body: JSON.stringify(data)
+                body: JSON.stringify({success:data})
             } 
         }
         catch(err){
             return{
                 statusCode: 200,
-                body: JSON.stringify({message: body.useId})
+                body: JSON.stringify({message: body['content']})
             } 
         }
 
