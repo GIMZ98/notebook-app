@@ -4,38 +4,53 @@ exports.handler = async (event, context)=>{
 
     var { httpMethod, path, body, queryStringParameters} = event;
 
-    // if(req.query.id){
-    //     const id = req.query.id;
 
-    //     Notedb.findById(id)
-    //     .then(data=>{
-    //         if(!data){
-    //             res.status(404).send({message: "Not found note with id "+ id});
-    //         }
-    //         else{
-    //             res.send(data);
-    //             console.log("note data: ", data)
-    //         }
-    //     })
-    //     .catch(err=>{
-    //         res.status(500).send({message:"Error retrieving note with id "+ id});        
-    //     })
-    // }
-    // else{
-    //     Notedb.find()
-    //     .then(data=>{
-    //         res.send(data);
-    //         console.log("all notes: ", data)
-    //     })
-    //     .catch(err=>{
-    //         res.status(500).send({message:err.message});
-    //     })
-    // }
+    if(queryStringParameters["id"]){
+        const id = queryStringParameters["id"];
 
-    return{
-        statusCode: 200,
-        body: JSON.stringify({httpMethod: httpMethod, path: path, body: body, id: queryStringParameters["id"]})
-    }  
+        Notedb.findById(id)
+        .then(data=>{
+            if(!data){
+                return{
+                    statusCode: 404,
+                    body: JSON.stringify({message: "Not found note with id "+ id})
+                }  
+            }
+            else{
+                console.log("note data: ", data)
+                return{
+                    statusCode: 200,
+                    body: JSON.stringify(data)
+                }  
+            }
+        })
+        .catch(err=>{
+            return{
+                statusCode: 500,
+                body: JSON.stringify({message: "Error retrieving data"})
+            }        
+        })
+    }
+    else{
+        Notedb.find()
+        .then(data=>{
+            return{
+                statusCode: 200,
+                body: JSON.stringify(data)
+            }  
+        })
+        .catch(err=>{
+            return{
+                statusCode: 500,
+                body: JSON.stringify({message: "Error retrieving data"})
+            }   
+        })
+    }
+
+    // return{
+    //     statusCode: 200,
+    //     body: JSON.stringify({message: "Not found note with id "+ id})
+    // }  
 
 
 }
