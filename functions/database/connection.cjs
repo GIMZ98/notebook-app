@@ -8,7 +8,7 @@ exports.handler = async()=>{
         console.log(`MongoDB connected: ${con.connection.host}`);
     }
     catch(err){
-        console.log(err);
+        console.log("connection error");
         process.exit(1);
     }
 }
