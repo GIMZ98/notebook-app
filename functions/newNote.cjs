@@ -18,24 +18,21 @@ exports.handler = async (event, context)=>{
             title:body["title"],
             content:body["content"],
         })
-    
-        //save note in the database
-        note
-            .save(note)
-            .then(data=>{
-                //res.send(data)
-                console.log("note saved", data)
-                return{
-                    statusCode: 200,
-                    body: JSON.stringify(data)
-                } 
-            })
-            .catch(err=>{
-                return{
-                    statusCode: 200,
-                    body: JSON.stringify(data)
-                } 
-            });
+
+        try{
+            const data = await note.save(note);
+            return{
+                statusCode: 200,
+                body: JSON.stringify(data)
+            } 
+        }
+        catch(err){
+            return{
+                statusCode: 200,
+                body: JSON.stringify({Error: err})
+            } 
+        }
+
     }
     finally{
         await close()
