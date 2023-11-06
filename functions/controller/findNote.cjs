@@ -1,6 +1,6 @@
 var Notedb = require('../models/note.cjs');
 
-exports.handler = (event)=>{
+exports.handler = async (event, context)=>{
 
     var { httpMethod, path, body} = event;
 
@@ -32,10 +32,10 @@ exports.handler = (event)=>{
     //     })
     // }
 
-    return {
+    return{
         statusCode: 200,
-        body: httpMethod
-    }
+        body: JSON.stringify({message: "Error"})
+    }  
 
 
 }
