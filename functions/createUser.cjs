@@ -1,5 +1,4 @@
 var Userdb = require('./models/user.cjs');
-const connectDB = require('./database/connection')
 const argon2 = require('argon2');
 
 const hashPassword = async(password) => {
@@ -13,7 +12,7 @@ const hashPassword = async(password) => {
 }
 
 exports.handler = async (req,res)=>{
-    connectDB();
+
     //validate request
     if(!req.body){
         res.status(400).send({message: "Content can not be empty!"});
