@@ -29,7 +29,7 @@ exports.handler = async (event, context)=>{
         catch(err){
             return{
                 statusCode: 200,
-                body: JSON.stringify({Error: err})
+                body: JSON.stringify({Body of the request: body})
             } 
         }
 
