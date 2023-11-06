@@ -32,6 +32,7 @@ exports.handler = (event)=>{
     //     })
     // }
 
-    res.status(200).send({message:event});
+    return event;
+
 
 }
