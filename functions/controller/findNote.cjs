@@ -2,7 +2,7 @@ var Notedb = require('../models/note.cjs');
 
 exports.handler = (event)=>{
 
-    //var { httpMethod, path, body} = event;
+    var { httpMethod, path, body} = event;
 
     // if(req.query.id){
     //     const id = req.query.id;
@@ -32,7 +32,7 @@ exports.handler = (event)=>{
     //     })
     // }
 
-    return event;
+    return httpMethod;
 
 
 }
