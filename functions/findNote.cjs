@@ -29,8 +29,8 @@ exports.handler = async (event, context)=>{
             
             try{
               data = await Notedb.find()
-              
-              if(!data==''){
+
+              if(data==''){
                 return{
                     statusCode: 500,
                     body: JSON.stringify({message: "Error retrieving data"})
