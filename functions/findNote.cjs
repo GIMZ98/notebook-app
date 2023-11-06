@@ -5,7 +5,13 @@ exports.handler = async (event, context)=>{
     try{
         await connect()
         var { httpMethod, path, body, queryStringParameters} = event;
-    
+
+        if (httpMethod != GET){
+            return{
+                statusCode: 500,
+                body: JSON.stringify({message: "Wrong method"})
+            }  
+        }
     
         if(queryStringParameters["id"]){
             const id = queryStringParameters["id"];
@@ -56,11 +62,5 @@ exports.handler = async (event, context)=>{
     finally{
         await close()
     }
-
-    // return{
-    //     statusCode: 200,
-    //     body: JSON.stringify({message: "Not found note with id "+ id})
-    // }  
-
 
 }
