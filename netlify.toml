@@ -1,2 +1,2 @@
 [build]
-  functions = "functions/components"
+  functions = "functions/controller"
