@@ -2,7 +2,7 @@ var Notedb = require('../models/note.cjs');
 
 exports.handler = async (event, context)=>{
 
-    var { httpMethod, path, body, rawQuery} = event;
+    var { httpMethod, path, body, queryStringParameters} = event;
 
     // if(req.query.id){
     //     const id = req.query.id;
@@ -34,7 +34,7 @@ exports.handler = async (event, context)=>{
 
     return{
         statusCode: 200,
-        body: JSON.stringify({httpMethod: httpMethod, path: path, body: body, query: rawQuery})
+        body: JSON.stringify({httpMethod: httpMethod, path: path, body: body, id: queryStringParameters["id"]})
     }  
 
 
