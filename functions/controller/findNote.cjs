@@ -32,7 +32,10 @@ exports.handler = (event)=>{
     //     })
     // }
 
-    return httpMethod;
+    return {
+        statusCode: 200,
+        body: httpMethod
+    }
 
 
 }
