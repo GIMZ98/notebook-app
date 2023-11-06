@@ -14,9 +14,9 @@ exports.handler = async (event, context)=>{
         }
 
         const note = new Notedb({
-            userId:body["userId"],
-            title:body["title"],
-            content:body["content"],
+            userId:body.userId,
+            title:body.title,
+            content:body.content,
         })
 
         try{
