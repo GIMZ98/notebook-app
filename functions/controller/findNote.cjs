@@ -26,7 +26,7 @@ exports.handler = async (event, context)=>{
         var data = ''
         
         try{
-          data = Notedb.find()
+          data = await Notedb.find()
         }
         catch(err){
           console.log("Err: ", err)
