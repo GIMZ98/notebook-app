@@ -8,7 +8,7 @@ exports.handler = async (event, context)=>{
     if(queryStringParameters["id"]){
         const id = queryStringParameters["id"];
 
-        Notedb.findById(id)
+        await Notedb.findById(id)
         .then(data=>{
             if(!data){
                 return{
@@ -32,7 +32,7 @@ exports.handler = async (event, context)=>{
         })
     }
     else{
-        Notedb.find()
+        await Notedb.find()
         .then(data=>{
             return{
                 statusCode: 200,
