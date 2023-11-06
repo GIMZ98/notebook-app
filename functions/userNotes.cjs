@@ -1,4 +1,4 @@
-var Notedb = require('../models/note.cjs');
+var Notedb = require('./models/note.cjs');
 
 exports.handler = (req,res)=>{
     if(!req.body){

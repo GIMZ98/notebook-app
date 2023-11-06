@@ -1,4 +1,4 @@
-var Userdb = require('../models/user.cjs');
+var Userdb = require('./models/user.cjs');
 
 //Delete a user with given user id in the request
 exports.delete = (req,res)=>{

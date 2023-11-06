@@ -1,9 +1,11 @@
 require('dotenv').config()
 const mongoose = require('mongoose');
 
-exports.handler = async()=>{
+let con = null
+
+const connect = async()=>{
     try{
-        const con = await mongoose.connect(process.env.MONGO_URL)
+        con = await mongoose.connect(process.env.MONGO_URL)
 
         console.log(`MongoDB connected: ${con.connection.host}`);
     }
@@ -12,3 +14,15 @@ exports.handler = async()=>{
         process.exit(1);
     }
 }
+
+const close = async()=>{
+    if(con && con.connection.readyState === 1){
+        await con.disconnect();
+        con = null;
+    }
+}
+
+module.exports = {
+    connect,
+    close,
+};
