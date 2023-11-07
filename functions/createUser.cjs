@@ -41,16 +41,9 @@ exports.handler = async (event, context)=>{
             console.log("error: ", err)
         }
 
-
-        try{
-            const data = await user.save();
-            return{
-                statusCode: 200,
-                body: JSON.stringify({success:data})
-            } 
-        }
-        catch(err){
-            if(err.code == 11000){
+        await user.save()
+        .then(data => {
+            if(!data){
                 return{
                     statusCode: 500,
                     message:"A user with that username already exits",
@@ -58,11 +51,36 @@ exports.handler = async (event, context)=>{
             }
             else{
                 return{
-                    statusCode: 500,
-                    message:err,
+                    statusCode: 200,
+                    body: JSON.stringify({success:data})
                 }
             }
-        }
+        })
+        .catch(err=>{
+            res.status(500).send({message: err});
+        });
+
+        // try{
+        //     const data = await user.save();
+        //     return{
+        //         statusCode: 200,
+        //         body: JSON.stringify({success:data})
+        //     } 
+        // }
+        // catch(err){
+        //     if(err.code == 11000){
+        //         return{
+        //             statusCode: 500,
+        //             message:"A user with that username already exits",
+        //         }
+        //     }
+        //     else{
+        //         return{
+        //             statusCode: 500,
+        //             message:err,
+        //         }
+        //     }
+        // }
     }
     finally{
         await close()
