@@ -19,14 +19,18 @@ exports.handler = async (event, context)=>{
             const title_ = body.title;
             const content_ = body.content;
 
-            const data = Notedb.findByIdAndUpdate(id, {title:title_, content:content_})
-            if(!data){
+            var data = ''
+            
+            try{
+                data = await Notedb.findByIdAndUpdate(id, {title:title_, content:content_})
+            }
+            catch(err){
                 return{
-                    statusCode: 404,
-                    body: JSON.stringify({message: "Not found note with id "+ id})
+                    statusCode: 500,
+                    body: JSON.stringify({error:err})
                 }  
             }
-
+            
             return {
                 statusCode: 200,
                 body: JSON.stringify({success:data})
