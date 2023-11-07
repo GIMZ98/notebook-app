@@ -23,7 +23,7 @@ exports.handler = async (event, context)=>{
         if (httpMethod != 'POST'){
             return{
                 statusCode: 500,
-                body: JSON.stringify({message: body})
+                body: JSON.stringify({message: "Wrong method!"})
             }  
         }
 
@@ -33,7 +33,7 @@ exports.handler = async (event, context)=>{
         else{
             return{
                 statusCode: 500,
-                body: JSON.stringify({'no body in request': event})
+                body: JSON.stringify({'no body in request'})
             }  
         }
 
