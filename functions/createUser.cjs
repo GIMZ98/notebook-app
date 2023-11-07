@@ -33,7 +33,7 @@ exports.handler = async (event, context)=>{
         else{
             return{
                 statusCode: 500,
-                body: JSON.stringify({'no body in request'})
+                body: JSON.stringify({message:'no body in request'})
             }  
         }
 
