@@ -16,11 +16,18 @@ exports.handler = async (event, context)=>{
             }  
         }
 
-        const note = new Notedb({
-            userId:body.userId,
-            title:body.title,
-            content:body.content,
-        })
+        var note = null
+        try{
+             note = new Notedb({
+                userId:body.userId,
+                title:body.title,
+                content:body.content,
+            })
+        }
+        catch(err){
+            console.log("error: ", err)
+        }
+
 
         try{
             const data = await note.save(note);
@@ -32,7 +39,7 @@ exports.handler = async (event, context)=>{
         catch(err){
             return{
                 statusCode: 200,
-                body: JSON.stringify({message: event})
+                body: JSON.stringify({message: body})
             } 
         }
 
