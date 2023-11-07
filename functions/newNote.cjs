@@ -5,9 +5,9 @@ exports.handler = async (event, context)=>{
     try{
         await connect()
         const { httpMethod, path, body, queryStringParameters} = event;
-        // if (body){
-        //     body = JSON.parse(body)
-        // }
+        if (body){
+            body = JSON.parse(body)
+        }
 
         if (httpMethod != 'POST'){
             return{
