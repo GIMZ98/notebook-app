@@ -4,7 +4,10 @@ const { connect, close } = require('./database/connection.cjs')
 exports.handler = async (event, context)=>{
     try{
         await connect()
-        var { httpMethod, path, body, queryStringParameters} = event;
+        const { httpMethod, path, body, queryStringParameters} = event;
+        if (body){
+            body = JSON.parse(body)
+        }
 
         if (httpMethod != 'POST'){
             return{
