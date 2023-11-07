@@ -41,8 +41,14 @@ exports.handler = async (event, context)=>{
             const id = queryStringParameters["id"];
             
             try{
-                await Userdb.findByIdAndDelete(id)
-                await Notedb.deleteMany({ userId: id })
+                try{
+                    await Userdb.findByIdAndDelete(id)
+                }catch(err){}
+
+                try{
+                    await Notedb.deleteMany({ userId: id })
+                }catch(err){}
+
             }
             catch(err){
                 return{
