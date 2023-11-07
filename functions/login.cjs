@@ -79,31 +79,11 @@ exports.handler = async (event, context)=>{
             hashPassword = user.password
         }
         catch(err){
-            if(err.code == 11000){
-                return{
-                    statusCode: 500,
-                    body: JSON.stringify({message:"A user with that username already exits"})
-                }
-            }
-            else{
-                return{
-                    statusCode: 500,
-                    body: JSON.stringify({msg:err})
-                }
-            }
+            return{
+                statusCode: 500,
+                body: JSON.stringify({error:'Not registered!'})
+            } 
         }
-
-
-		// await Userdb.findOne({ name: username_})
-		// .then((user) => {
-        //     hashPassword = user.password
-		// })
-		// .catch(err => {
-        //     return{
-        //         statusCode: 500,
-        //         body: JSON.stringify({error:'Not registered!'})
-        //     } 
-		// })
 
         if(await verifyPassword(hashPassword, password_)){
             return{
