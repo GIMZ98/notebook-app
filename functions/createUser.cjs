@@ -48,13 +48,14 @@ exports.handler = async (event, context)=>{
             if(err.code == 11000){
                 return{
                     statusCode: 500,
-                    message:"A user with that username already exits",
+                    body: JSON.stringify({message:"A user with that username already exits"})
+    
                 }
             }
             else{
                 return{
                     statusCode: 500,
-                    message:err,
+                    body: JSON.stringify({msg:err})
                 }
             }
         }
