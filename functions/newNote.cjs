@@ -5,15 +5,16 @@ exports.handler = async (event, context)=>{
     try{
         await connect()
         var { httpMethod, path, body, queryStringParameters} = event;
-        if (body){
-            body = JSON.parse(body)
-        }
 
         if (httpMethod != 'POST'){
             return{
                 statusCode: 500,
                 body: JSON.stringify({message: "Wrong method"})
             }  
+        }
+
+        if (body){
+            body = JSON.parse(body)
         }
 
         var note = null
