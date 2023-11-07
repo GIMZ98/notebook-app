@@ -2,19 +2,6 @@ var Userdb = require('./models/user.cjs');
 const argon2 = require('argon2');
 const { connect, close } = require('./database/connection.cjs')
 
-const hashPassword = async(password) => {
-	try{
-		const hash = await argon2.hash(password);
-		return hash;
-	}
-	catch(err){
-        return{
-            statusCode: 500,
-            body: JSON.stringify({'hashError': err})
-        } 
-	}
-}
-
 exports.handler = async (event, context)=>{
     try{
         await connect()
@@ -50,27 +37,21 @@ exports.handler = async (event, context)=>{
             console.log("error: ", err)
         }
 
-        await user.save()
-        .then(data => {
-            if(!data){
-                return{
-                    statusCode: 500,
-                    body: JSON.stringify({success:"A user with that username already exits"}),
-                }
-            }
-            else{
-                return{
-                    statusCode: 200,
-                    body: JSON.stringify({success:"data"}),
-                }
-            }
-        })
-        .catch(err=>{
+        try{
+            const data = await user.save();
             return{
-                statusCode: 500,
-                body: JSON.stringify({message:err})
-            }
-        });
+                statusCode: 200,
+                body: JSON.stringify({success:data})
+            } 
+        }
+        catch(err){
+            return{
+                statusCode: 200,
+                body: JSON.stringify({message: err})
+            } 
+        }
+
+       
 
         // try{
         //     const data = await user.save();
@@ -97,4 +78,17 @@ exports.handler = async (event, context)=>{
     finally{
         await close()
     }
+}
+
+const hashPassword = async(password) => {
+	try{
+		const hash = await argon2.hash(password);
+		return hash;
+	}
+	catch(err){
+        return{
+            statusCode: 500,
+            body: JSON.stringify({'hashError': err})
+        } 
+	}
 }
