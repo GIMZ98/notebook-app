@@ -12,6 +12,10 @@ exports.handler = async (event, context)=>{
                 body: JSON.stringify({message: "Wrong method"})
             }  
         }
+
+        if (body){
+            body = JSON.parse(body)
+        }
     
         if(queryStringParameters["id"]){
             const id = queryStringParameters["id"];
