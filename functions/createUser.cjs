@@ -46,3 +46,59 @@ exports.handler = async (req,res)=>{
             }
         });
 }
+
+
+var Userdb = require('./models/user.cjs');
+const argon2 = require('argon2');
+const { connect, close } = require('./database/connection.cjs')
+
+exports.handler = async (event, context)=>{
+    try{
+        await connect()
+        var { httpMethod, path, body, queryStringParameters} = event;
+
+        if (httpMethod != 'POST'){
+            return{
+                statusCode: 500,
+                body: JSON.stringify({message: "Wrong method"})
+            }  
+        }
+
+        if (body){
+            body = JSON.parse(body)
+        }
+
+        const hpassword = await hashPassword(body.password)
+
+        var user = null
+        try{
+            user = new Userdb({
+                name:req.body.name,
+                password:hpassword,
+            })
+        }
+        catch(err){
+            console.log("error: ", err)
+        }
+
+
+        try{
+            const data = await note.save(note);
+            return{
+                statusCode: 200,
+                body: JSON.stringify({success:data})
+            } 
+        }
+        catch(err){
+            return{
+                statusCode: 200,
+                body: JSON.stringify({message: body})
+            } 
+        }
+
+    }
+    finally{
+        await close()
+    }
+
+}

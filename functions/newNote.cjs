@@ -30,7 +30,7 @@ exports.handler = async (event, context)=>{
 
 
         try{
-            const data = await note.save(note);
+            const data = await note.save();
             return{
                 statusCode: 200,
                 body: JSON.stringify({success:data})
