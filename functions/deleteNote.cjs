@@ -1,18 +1,49 @@
 var Notedb = require('./models/note.cjs');
+const { connect, close } = require('./database/connection.cjs')
 
-exports.handler = (req,res)=>{
-    const id = req.params.id;
+exports.handler = async (event, context)=>{
+    try{
+        await connect()
+        var { httpMethod, path, body, queryStringParameters} = event;
 
-    Notedb.findByIdAndDelete(id)
-        .then(data => {
-            if(!data){
-                res.status(404).send({message: `Cannot Delete with id ${id}.`})
+        if (httpMethod != 'DELETE'){
+            return{
+                statusCode: 500,
+                body: JSON.stringify({message: "Wrong method"})
+            }  
+        }
+
+    
+        if(queryStringParameters["id"]){
+            const id = queryStringParameters["id"];
+
+            var data = ''
+            
+            try{
+                data = await Notedb.findByIdAndDelete(id)
             }
-            else{
-                res.send({message:"Note was deleted successfully!"});
+            catch(err){
+                return{
+                    statusCode: 500,
+                    body: JSON.stringify({error:err})
+                }  
             }
-        })
-        .catch(err=>{
-            res.status(500).send({message: "Could not delete note with id="+id});
-        });
+            
+            return {
+                statusCode: 200,
+                body: JSON.stringify({success:"Note was deleted successfully!"})
+            } 
+
+        }
+        else{
+            return{
+                statusCode: 500,
+                body: JSON.stringify({error: "Error deleting data"})
+            }   
+        }
+    }
+    finally{
+        await close()
+    }
+
 }
