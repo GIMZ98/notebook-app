@@ -8,7 +8,10 @@ const hashPassword = async(password) => {
 		return hash;
 	}
 	catch(err){
-		console.log("err hashing: ", err)
+        return{
+            statusCode: 500,
+            body: JSON.stringify({'hashError': err})
+        } 
 	}
 }
 
@@ -20,7 +23,7 @@ exports.handler = async (event, context)=>{
         if (httpMethod != 'POST'){
             return{
                 statusCode: 500,
-                body: JSON.stringify({message: "Wrong method"})
+                body: JSON.stringify({message: body})
             }  
         }
 
@@ -52,7 +55,7 @@ exports.handler = async (event, context)=>{
             else{
                 return{
                     statusCode: 200,
-                    body: JSON.stringify({success:data}),
+                    body: JSON.stringify({success:"data"}),
                 }
             }
         })
