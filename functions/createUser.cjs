@@ -18,7 +18,7 @@ const hashPassword = async(password) => {
 exports.handler = async (event, context)=>{
     try{
         await connect()
-        var { httpMethod, path, body, queryStringParameters} = event;
+        var { httpMethod, body } = event;
 
         if (httpMethod != 'POST'){
             return{
@@ -29,6 +29,12 @@ exports.handler = async (event, context)=>{
 
         if (body){
             body = JSON.parse(body)
+        }
+        else{
+            return{
+                statusCode: 500,
+                body: JSON.stringify({'no body in request': event})
+            }  
         }
 
         const hpassword = await hashPassword(body.password)
