@@ -46,7 +46,7 @@ exports.handler = async (event, context)=>{
             if(!data){
                 return{
                     statusCode: 500,
-                    message:"A user with that username already exits",
+                    body: JSON.stringify({success:"A user with that username already exits"}),
                 }
             }
             else{
