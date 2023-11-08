@@ -11,7 +11,7 @@ const Login = () => {
     var canLog = Boolean(username) && Boolean(password)
 
     const validate = async() => {
-        await axios.post('https://gimzweb1.netlify.app/.netlify/functions/login',
+        await axios.post('/.netlify.app/.netlify/functions/login',
             {name:username, password:password}
         )
         .then(response =>{
