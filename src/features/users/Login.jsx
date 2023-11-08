@@ -18,7 +18,13 @@ const Login = () => {
             console.log("response", response)
         })
         .catch(err => {
-            console.log("error: ",err)
+            if(err.response.data.error == 'Not registered!'){
+                console.log("User not registered!",)
+            }
+            if(err.response.data.error == 'user unauthorized'){
+                console.log("user unauthorized",)
+            }
+
         })
     }
 
@@ -32,7 +38,7 @@ const Login = () => {
                     <input id='password' onChange={onPasswordChanged} type="text" className='border-[1px] border-slate-600 p-3 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-500 w-full' placeholder='Password'/>
                 </div>
 
-                <div id="notification" className='text-red-500 hidden'>Not registerd yet</div>
+                <div id="notification" className='text-red-500'></div>
                 
                 <button id='submitBtn' onClick={validate} disabled={!canLog} className='bg-blue-600 py-2 px-5 w-full text-white font-bold text-[16px] hover:bg-blue-800 disabled:opacity-80 disabled:pointer-events-none'>Login</button>
                 <div>Not registered yet? <a href="" className='text-blue-500 hover:text-blue-800'>register here</a></div>
