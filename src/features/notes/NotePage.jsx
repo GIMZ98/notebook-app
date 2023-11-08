@@ -7,17 +7,17 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 const NotePage = () => {
 
   const showNewNote = () => {
-    $('#newNoteDiv').addClass('z-10').removeClass('z-[-10]')
+    $('#newNoteDiv').addClass('z-10').removeClass('z-[-10]').removeClass('hidden')
   }
 
   const hideNewNote = () => {
-    $('#newNoteDiv').addClass('z-[-10]').removeClass('z-10')
+    $('#newNoteDiv').addClass('z-[-10]').addClass('hidden').removeClass('z-10')
   }
 
   return (
     <>
         <div className='relative flex flex-col w-screen min-h-screen bg-slate-100'>
-            <nav className="fixed flex top-0 justify-end w-full bg-slate-900 sm:px-[50px] px-0">
+            <nav className="fixed flex top-0 justify-end w-full bg-slate-900 sm:px-[50px] px-0 z-0">
                 <ul className="flex sm:w-[390px] w-screen justify-between">
                     <li  onClick={showNewNote} className="text-xl text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[260px] pl-2">New Note+</li>
                     <Link to="/login"><li className="text-xl text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[130px] px-5">Log out</li></Link>
@@ -27,7 +27,7 @@ const NotePage = () => {
             <div className='w-screen h-[100px] bg-blue-0'></div>
 
             {/* Notes div */}
-            <div id='notesDiv' className='flex flex-col items-center w-screen'>
+            <div id='notesDiv' className='flex flex-col items-center w-screen z-0'>
 
                 {/* Single Note */}
                 <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
