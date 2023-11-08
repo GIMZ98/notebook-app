@@ -19,13 +19,14 @@ const Login = () => {
             console.log("response", response)
         })
         .catch(err => {
-            if(err.response.data.error == 'Not registered!'){
-                console.log("User not registered!",)
-                $('#notification').text('User not exists!')
-            }
-            if(err.response.data.error == 'user unauthorized'){
-                $('#notification').text('Wrong password!')
-            }
+            console.log("err: ", err)
+            // if(err.response.data.error == 'Not registered!'){
+            //     console.log("User not registered!",)
+            //     $('#notification').text('User not exists!')
+            // }
+            // if(err.response.data.error == 'user unauthorized'){
+            //     $('#notification').text('Wrong password!')
+            // }
 
         })
     }
