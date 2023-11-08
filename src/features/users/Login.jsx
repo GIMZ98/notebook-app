@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import $ from 'jquery'
 
 const Login = () => {
     const [username, setUsername] = useState('')
@@ -20,9 +21,10 @@ const Login = () => {
         .catch(err => {
             if(err.response.data.error == 'Not registered!'){
                 console.log("User not registered!",)
+                $('#notification').text('User not exists!')
             }
             if(err.response.data.error == 'user unauthorized'){
-                console.log("user unauthorized",)
+                $('#notification').text('Wrong password!')
             }
 
         })

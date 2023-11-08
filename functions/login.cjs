@@ -2,12 +2,6 @@ var Userdb = require('./models/user.cjs');
 const argon2 = require('argon2');
 const { connect, close } = require('./database/connection.cjs')
 
-const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-  };
-
 exports.handler = async (event, context)=>{
     try{
         await connect()
@@ -15,8 +9,7 @@ exports.handler = async (event, context)=>{
 
         if (httpMethod != 'POST'){
             return{
-                statusCode: 500,
-                headers: headers,
+                statusCode: 405,
                 body: JSON.stringify({message: "Wrong method!"})
             }  
         }
@@ -37,8 +30,7 @@ exports.handler = async (event, context)=>{
         }
         catch(err){
             return{
-                statusCode: 500,
-                headers: headers,
+                statusCode: 403,
                 body: JSON.stringify({error:'Not registered!'})
             } 
         }
@@ -46,14 +38,12 @@ exports.handler = async (event, context)=>{
         if(await verifyPassword(hashPassword, password_)){
             return{
                 statusCode: 200,
-                headers: headers,
                 body: JSON.stringify({success:'user verified'})
             } 
         }
         else{
             return{
-                statusCode: 500,
-                headers: headers,
+                statusCode: 403,
                 body: JSON.stringify({error:'user unauthorized'})
             } 
         }
