@@ -4,7 +4,13 @@ import $ from 'jquery'
 import { AiFillEdit } from 'react-icons/ai'
 import { RiDeleteBinLine } from 'react-icons/ri'
 
+import { useSelector } from 'react-redux'
+import { selectUser } from '../users/userSlice'
+
 const NotePage = () => {
+
+  const user = useSelector(selectUser)
+  console.log("username: ", user.name, ", userId: ", user.userId);
 
   const showNewNote = () => {
     $('#newNoteDiv').addClass('z-10').removeClass('z-[-10]').removeClass('hidden')

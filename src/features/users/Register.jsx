@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import $ from 'jquery'
+import { setUser } from './userSlice'
+import { useDispatch } from 'react-redux'
+import { redirect } from 'react-router-dom'
 
 const Register = () => {
     const [username, setUsername] = useState('')
@@ -8,6 +11,8 @@ const Register = () => {
 
     const onUsernameChanged = (e) => setUsername(e.target.value)
     const onPasswordChanged = (e) => setPassword(e.target.value)
+
+    const dispatch = useDispatch()
  
     var canReg = Boolean(username) && Boolean(password)
 
@@ -17,7 +22,13 @@ const Register = () => {
         )
         .then(response =>{
             console.log("response", response)
-            $('#notification').text('Register success!')
+        dispatch(
+            setUser({
+                name: username,
+                useId: response.data.success._id,
+            })
+        )
+            return redirect('/notes')
         })
         .catch(err => {
             console.log("err: ", err)

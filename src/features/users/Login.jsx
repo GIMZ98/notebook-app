@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import $ from 'jquery'
+import { setUser } from './userSlice'
+import { useDispatch } from 'react-redux'
+import { redirect } from 'react-router-dom'
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
+    const dispatch = useDispatch()
 
     const onUsernameChanged = (e) => setUsername(e.target.value)
     const onPasswordChanged = (e) => setPassword(e.target.value)
@@ -17,6 +22,15 @@ const Login = () => {
         )
         .then(response =>{
             console.log("response", response)
+            dispatch(
+                setUser(
+                    {
+                        name: username,
+                        userId: response.data.userId,
+                    }
+                )
+            )
+            return redirect('/notes')
         })
         .catch(err => {
             console.log("err: ", err)
