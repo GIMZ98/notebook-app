@@ -25,7 +25,7 @@ const NotePage = () => {
         <div className='relative flex flex-col w-screen min-h-screen bg-slate-100'>
             <nav className="fixed flex top-0  w-full bg-slate-900 sm:px-[50px] px-0 z-0">
                 <div className='flex w-full bg-green-0 justify-between items-center'>
-                    <div className='sm:w-[200px] w-1/3 text-white sm:text-2xl text-xl px-[10px]  font-mono truncate bg-slate-0'>
+                    <div className='sm:w-[200px] w-1/3 text-white sm:text-2xl text-xl px-[10px]  font-mono truncate'>
                         {user.name}
                     </div>
 
