@@ -23,11 +23,17 @@ const NotePage = () => {
   return (
     <>
         <div className='relative flex flex-col w-screen min-h-screen bg-slate-100'>
-            <nav className="fixed flex top-0 justify-end w-full bg-slate-900 sm:px-[50px] px-0 z-0">
-                <ul className="flex sm:w-[390px] w-screen justify-between">
-                    <li  onClick={showNewNote} className="text-xl text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[260px] pl-2">New Note+</li>
-                    <Link to="/login"><li className="text-xl text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[130px] px-5">Log out</li></Link>
-                </ul>
+            <nav className="fixed flex top-0  w-full bg-slate-900 sm:px-[50px] px-0 z-0">
+                <div className='flex w-full bg-green-0 justify-between items-center'>
+                    <div className='sm:w-[200px] w-1/3 text-white sm:text-2xl text-xl px-[10px]  font-mono truncate bg-slate-200'>
+                        {user.name}
+                    </div>
+
+                    <ul className="flex sm:w-[390px] w-2/3 justify-between bg-blue-0">
+                        <li  onClick={showNewNote} className="text-xl text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[260px] pl-2">New Note+</li>
+                        <Link to="/login"><li className="text-xl text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[130px] px-5">Log out</li></Link>
+                    </ul>
+                </div>
             </nav>
 
             <div className='w-screen h-[100px] bg-blue-0'></div>
