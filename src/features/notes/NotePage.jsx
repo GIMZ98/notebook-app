@@ -42,6 +42,16 @@ const NotePage = () => {
     })
   }
 
+  const showNote = (note) => {
+    $('#viewNoteDiv').removeClass('z-[-10]').addClass('z-[10]').removeClass('hidden')
+    $('#viewTitle').text(note.title)
+    $('#viewContent').text(note.content)
+  }
+
+  const hideViewNote = () => {
+    $('#viewNoteDiv').addClass('z-[-10]').addClass('hidden').removeClass('z-10')
+  }
+
   var canSave = Boolean(newTitle) && Boolean(newContent)
 
   const saveNote = async() => {
@@ -94,18 +104,15 @@ const NotePage = () => {
 
                 {
                     notes.map((note, index) => (
-                        <div key={index}>
-                            <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
-                                <div className='w-full h-[50px] text-[20px] p-[10px] font-mono truncate'>
-                                    {note.title}
-                                </div>
-                                <div className='flex items-center justify-between w-[120px] h-full p-[10px]'>
-                                    <AiFillEdit className='text-3xl'/>
-                                    <RiDeleteBinLine className='text-3xl'/>
-                                </div>
+                        <div key={index} id={note._id} onClick={showNote(note)} className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
+                            <div className='w-full h-[50px] text-[20px] p-[10px] font-mono truncate'>
+                                {note.title}
+                            </div>
+                            <div className='flex items-center justify-between w-[120px] h-full p-[10px]'>
+                                <AiFillEdit className='text-3xl'/>
+                                <RiDeleteBinLine className='text-3xl'/>
                             </div>
                         </div>
-
 
                     ))
 
@@ -115,7 +122,7 @@ const NotePage = () => {
                 {/* Single Note */}
                 {/* <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
                     <div className='w-full h-[50px] text-[20px] p-[10px] font-mono truncate'>
-                        This is title  This is title  This is title This is title  This is title  This is title This is title  This is title  This is title
+                        This
                     </div>
                     <div className='flex items-center justify-between w-[120px] h-full p-[10px]'>
                         <AiFillEdit className='text-3xl'/>
@@ -131,6 +138,25 @@ const NotePage = () => {
 
 
             {/* New Note div */}
+            <div id='viewNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10]'>
+
+                <div className='flex flex-col justify-between items-center sm:w-[500px] w-full sm:h-[600px] h-full bg-blue-400 py-5'>
+                    <h1 className='text-3xl font-bold text-white font-mono'>Note</h1>
+                    <div className='p-[10px]'>
+                        <div id="viewTitle" className='sm:w-[400px] w-full h-[50px] bg-white mb-5 p-5'></div>
+                        <div id="viewContent" className='sm:w-[400px] w-full h-[300px] bg-white p-5 overflow-y-scroll'></div>
+                    </div>
+
+                    <div className='flex'>
+                        <button id='editBtn' className='bg-blue-600 py-2 px-8 w-full text-white font-bold text-[16px] hover:bg-green-800 disabled:opacity-80 disabled:pointer-events-none mx-5'>Edit</button>
+                        <button id='noteCloseBtn' onClick={hideViewNote} className='bg-red-600 py-2 px-5 w-full text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none mx-5'>Cancel</button>
+                    </div>
+                
+                </div>
+            </div>
+            {/*End of New Note div */}
+
+            {/* Note div */}
             <div id='newNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10]'>
 
                 <div className='flex flex-col justify-between items-center sm:w-[500px] w-full sm:h-[600px] h-full bg-blue-400 py-5'>
@@ -147,7 +173,7 @@ const NotePage = () => {
                 
                 </div>
             </div>
-            {/*End of New Note div */}
+            {/*End of Note div */}
 
 
         </div>
