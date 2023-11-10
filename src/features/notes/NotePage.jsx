@@ -9,8 +9,8 @@ import { selectUser } from '../users/userSlice'
 
 const NotePage = () => {
 
-  const user = useSelector(selectUser)
-  console.log("username: ", user.name, ", userId: ", user.userId);
+  var user = useSelector(selectUser)
+  console.log("user: ", user)
 
   const showNewNote = () => {
     $('#newNoteDiv').addClass('z-10').removeClass('z-[-10]').removeClass('hidden')

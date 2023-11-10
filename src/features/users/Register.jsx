@@ -21,14 +21,14 @@ const Register = () => {
             {name:username, password:password}
         )
         .then(response =>{
-            console.log("response", response)
-        dispatch(
-            setUser({
-                name: username,
-                useId: response.data.success._id,
-            })
-        )
-            return redirect('/notes')
+            console.log("response", response.data.success._id)
+        // dispatch(
+        //     setUser({
+        //         name: username,
+        //         useId: response.data.success._id,
+        //     })
+        // )
+            // return redirect('/notes')
         })
         .catch(err => {
             console.log("err: ", err)

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import $ from 'jquery'
-import { setUser } from './userSlice'
-import { useDispatch } from 'react-redux'
-import { redirect } from 'react-router-dom'
+import { setUser, selectUser } from './userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
+    const user = useSelector(selectUser)
 
     const onUsernameChanged = (e) => setUsername(e.target.value)
     const onPasswordChanged = (e) => setPassword(e.target.value)
@@ -21,7 +23,7 @@ const Login = () => {
             {name:username, password:password}
         )
         .then(response =>{
-            console.log("response", response)
+            console.log("response ", response)
             dispatch(
                 setUser(
                     {
@@ -30,7 +32,7 @@ const Login = () => {
                     }
                 )
             )
-            return redirect('/notes')
+            navigate("/notes")
         })
         .catch(err => {
             console.log("err: ", err)
