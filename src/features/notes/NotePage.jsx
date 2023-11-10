@@ -42,7 +42,7 @@ const NotePage = () => {
     })
   }
 
-  const showNote = (note) => {
+  const showNote = (event, note) => {
     $('#viewNoteDiv').removeClass('z-[-10]').addClass('z-[10]').removeClass('hidden')
     $('#viewTitle').text(note.title)
     $('#viewContent').text(note.content)
@@ -104,7 +104,7 @@ const NotePage = () => {
 
                 {
                     notes.map((note, index) => (
-                        <div key={index} id={note._id} onClick={showNote(note)} className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
+                        <div key={index} id={note._id} onClick={event => showNote(event, note)} className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 hover:bg-blue-200 border-b-2 border-black'>
                             <div className='w-full h-[50px] text-[20px] p-[10px] font-mono truncate'>
                                 {note.title}
                             </div>
