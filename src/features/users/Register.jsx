@@ -3,11 +3,12 @@ import axios from 'axios'
 import $ from 'jquery'
 import { setUser } from './userSlice'
 import { useDispatch } from 'react-redux'
-import { redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
     const onUsernameChanged = (e) => setUsername(e.target.value)
     const onPasswordChanged = (e) => setPassword(e.target.value)
@@ -22,13 +23,13 @@ const Register = () => {
         )
         .then(response =>{
             console.log("response", response.data.success._id)
-        // dispatch(
-        //     setUser({
-        //         name: username,
-        //         useId: response.data.success._id,
-        //     })
-        // )
-            // return redirect('/notes')
+            dispatch(
+                setUser({
+                    name: username,
+                    userId: response.data.success._id,
+                })
+            )
+            navigate("/notes")
         })
         .catch(err => {
             console.log("err: ", err)
