@@ -135,6 +135,26 @@ const NotePage = () => {
         })
   }
 
+  const deleteNote = async() => {
+    $('#deleteBtn').text("Deleting ⏳")
+    await axios.delete(`/.netlify/functions/deleteNote?id=${currentNote._id}`,
+        )
+        .then(response =>{
+            console.log("response", response)
+            $('#deleteBtn').text("Deleted")
+            fetchNotes()
+            hideDeleteDiv()
+            hideEditNote()
+            $('#deleteBtn').text("Delete")
+        })
+        .catch(err => {
+            console.log("err: ", err)
+            $('#deleteBtn').text("Delete")
+            hideDeleteDiv()
+
+        })
+  }
+
   useEffect(() => {
     console.log("changed")
     fetchNotes();
@@ -221,7 +241,7 @@ const NotePage = () => {
                     <h1 className='text-3xl font-bold text-black font-mono'>Are you sure?</h1>
 
                     <div className='flex justify-center w-full sm:px-5 px-2'>
-                        <button id='noteDeleteBtn' className='bg-red-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none mx-5'>Delete</button>
+                        <button id='deleteBtn' onClick={deleteNote} className='bg-red-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none mx-5'>Delete</button>
                         <button id='noteCloseBtn' onClick={hideDeleteDiv} className='bg-slate-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-slate-800 disabled:opacity-80 disabled:pointer-events-none mx-5'>Cancel</button>
                     </div>
 
