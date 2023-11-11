@@ -14,10 +14,16 @@ const NotePage = () => {
 
   const [newTitle, setNewTitle] = useState('')
   const [newContent, setNewContent] = useState('')
+  const [editTitle, setEditTitle] = useState('')
+  const [editContent, setEditContent] = useState('')
   const [notes, setNotes] = useState([])
+  const [editNoteId, setEditNoteId] = useState('')
 
   const onTitleChanged = (e) => setNewTitle(e.target.value)
   const onContentChanged = (e) => setNewContent(e.target.value)
+
+  const onEditTitleChanged = (e) => setEditTitle(e.target.value)
+  const onEditContentChanged = (e) => setEditContent(e.target.value)
 
   var user = useSelector(selectUser)
   console.log("user: ", user)
@@ -56,6 +62,19 @@ const NotePage = () => {
     $('#notesDiv').removeClass('hidden')
   }
 
+  const showEditNote = (event, note) => {
+    $('#editNoteDiv').removeClass('z-[-10]').addClass('z-10').removeClass('hidden')
+    $('#notesDiv').addClass('hidden')
+    $('#editTitle').val(note.title)
+    $('#editContent').val(note.content)
+    setEditNoteId(note._id)
+  }
+
+  const hideEditNote = () => {
+    $('#editNoteDiv').addClass('z-[-10]').addClass('hidden').removeClass('z-10')
+    $('#notesDiv').removeClass('hidden')
+  }
+
   var canSave = Boolean(newTitle) && Boolean(newContent)
 
   const saveNote = async() => {
@@ -71,6 +90,28 @@ const NotePage = () => {
             $('#title').val('')
             $('#content').val('')
             $('#submitBtn').text("Save")
+
+        })
+        .catch(err => {
+            console.log("err: ", err)
+
+        })
+  }
+
+  const saveEditNote = async() => {
+    $('#editSaveBtn').text("Saving")
+    await axios.post(`/.netlify/functions/updateNote?id=${editNoteId}`,
+            {title: editTitle, content: editContent}
+        )
+        .then(response =>{
+            console.log("response", response)
+            $('#editSaveBtn').text("Saved")
+            fetchNotes()
+            hideNewNote()
+            hideViewNote()
+            $('#title').val('')
+            $('#content').val('')
+            $('#editSaveBtn').text("Save")
 
         })
         .catch(err => {
@@ -125,7 +166,7 @@ const NotePage = () => {
 
                 {/* Single Note */}
                 {/* <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
-                    <div className='w-full h-[50px] text-[20px] p-[10px] font-mono truncate'>
+                    <div onClick={event => showNote(event, {title:'Title', content:'This is content.'})} className='w-full h-[50px] text-[20px] p-[10px] font-mono truncate'>
                         This
                     </div>
                     <div className='flex items-center justify-between w-[120px] h-full p-[10px]'>
@@ -151,9 +192,10 @@ const NotePage = () => {
                         <div id="viewContent" className='sm:w-[400px] w-full sm:h-[300px] h-[250px] bg-white p-5 overflow-y-scroll'></div>
                     </div>
 
-                    <div className='flex'>
-                        <button id='editBtn' className='bg-blue-600 py-2 px-8 w-full text-white font-bold text-[16px] hover:bg-green-800 disabled:opacity-80 disabled:pointer-events-none mx-5'>Edit</button>
-                        <button id='noteCloseBtn' onClick={hideViewNote} className='bg-red-600 py-2 px-5 w-full text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none mx-5'>Cancel</button>
+                    <div className='flex justify-between w-full sm:px-5 px-2'>
+                        <button id='editBtn' onClick={event => showEditNote(event, {title:'Title', content:'This is content.'})}  className='bg-blue-600 py-2 sm:px-8 px-5 text-white font-bold text-[16px] hover:bg-blue-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Edit</button>
+                        <button id='noteCloseBtn' onClick={hideViewNote} className='bg-red-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Delete</button>
+                        <button id='noteCloseBtn' onClick={hideViewNote} className='bg-slate-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-slate-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Close</button>
                     </div>
                 
                 </div>
@@ -161,7 +203,7 @@ const NotePage = () => {
             {/*End of New Note div */}
 
             {/* Note div */}
-            <div id='newNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10]'>
+            <div id='newNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 hidden z-[-10]'>
 
                 <div className='flex flex-col justify-between items-center sm:w-[500px] w-full sm:h-[600px] h-full bg-blue-400 py-5'>
                     <h1 className='text-3xl font-bold text-white font-mono'>New Note</h1>
@@ -178,6 +220,27 @@ const NotePage = () => {
                 </div>
             </div>
             {/*End of Note div */}
+
+
+            {/* Edit Note div */}
+            <div id='editNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10]'>
+
+                <div className='flex flex-col justify-between items-center sm:w-[500px] w-full sm:h-[600px] h-full bg-blue-400 py-5'>
+                    <h1 className='text-3xl font-bold text-white font-mono'>Edit</h1>
+                    <div className='p-[15px]'>
+                        <input id='editTitle' onChange={onEditTitleChanged} type="text" className='border-[1px] border-slate-600 p-3 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-500 w-full mb-5'/>
+                        <textarea id='editContent' onChange={onEditContentChanged} className='border-[1px] border-slate-600 p-3 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-500 w-full' rows="15"></textarea>
+                    </div>
+
+                    <div className='flex justify-between w-full sm:px-5 px-2'>
+                        <button id='editSaveBtn' onClick={saveEditNote} className='bg-blue-600 py-2 sm:px-8 px-5 text-white font-bold text-[16px] hover:bg-blue-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Save</button>
+                        <button id='editNoteCloseBtn' onClick={hideEditNote} className='bg-red-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Cancel</button>
+    
+                    </div>
+                
+                </div>
+            </div>
+            {/*End of Edit Note div */}          
 
 
         </div>
