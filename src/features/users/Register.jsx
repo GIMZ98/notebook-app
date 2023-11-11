@@ -46,7 +46,7 @@ const Register = () => {
     return (
         <>
         <div className='h-screen w-screen bg-blue-300 flex justify-center items-center'>
-            <div className='sm:w-[350px] sm:h-[400px] w-full h-full sm:bg-white py-[20px] px-[10px] bg-blue-300 rounded-[20px] flex flex-col justify-between items-center'>
+            <div className='sm:w-[350px] sm:h-[400px] w-full h-full sm:bg-white py-[20px] px-[10px] bg-blue-0 rounded-[20px] flex flex-col justify-between items-center'>
                 <h1 className='text-3xl font-bold text-slate-600 font-mono'>Register</h1>
                 <div className='min-w-full'>
                     <input id='username' onChange={onUsernameChanged} type="text" className='border-[1px] border-slate-600 p-3 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-500 w-full mb-5' placeholder='Username'/>
