@@ -198,7 +198,7 @@ const NotePage = () => {
 
 
                 {/* Single Note */}
-                <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
+                {/* <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
                     <div onClick={event => showNote(event, {title:'Title', content:'This is content.'})} className='w-full h-[50px] text-[20px] p-[10px] font-mono truncate'>
                         This
                     </div>
@@ -206,7 +206,7 @@ const NotePage = () => {
                         <AiFillEdit className='text-3xl'/>
                         <RiDeleteBinLine className='text-3xl'/>
                     </div>
-                </div>
+                </div> */}
                 {/* End of Single Note */}
 
              
