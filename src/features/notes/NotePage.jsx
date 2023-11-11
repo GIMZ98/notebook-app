@@ -144,7 +144,7 @@ const NotePage = () => {
             $('#deleteBtn').text("Deleted")
             fetchNotes()
             hideDeleteDiv()
-            hideEditNote()
+            hideViewNote()
             $('#deleteBtn').text("Delete")
         })
         .catch(err => {
