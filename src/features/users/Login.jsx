@@ -19,7 +19,7 @@ const Login = () => {
     var canLog = Boolean(username) && Boolean(password)
 
     const validate = async() => {
-        $('#submitbtn').text('Verifying ⏳')
+        $('#submitBtn').text('Verifying ⏳')
         await axios.post('/.netlify/functions/login',
             {name:username, password:password}
         )
