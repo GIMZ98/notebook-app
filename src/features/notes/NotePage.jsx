@@ -161,8 +161,6 @@ const NotePage = () => {
                                 {note.title}
                             </div>
                             <div className='flex items-center justify-between w-[120px] h-full p-[10px]'>
-                                <AiFillEdit className='text-3xl'/>
-                                <RiDeleteBinLine className='text-3xl'/>
                             </div>
                         </div>
 
