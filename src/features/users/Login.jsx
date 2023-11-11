@@ -52,7 +52,7 @@ const Login = () => {
 
     return (
         <>
-        <div className='h-screen w-screen bg-blue-200 flex justify-center items-center'>
+        <div className='h-screen w-screen bg-blue-0 flex justify-center items-center'>
             <div className='sm:w-[350px] sm:h-[400px] w-full h-full sm:bg-white py-[20px] px-[10px] bg-blue-0 rounded-[20px] flex flex-col justify-between items-center'>
                 <h1 className='text-3xl font-bold text-slate-600 font-mono'>Login</h1>
                 <div className='min-w-full'>
