@@ -100,7 +100,7 @@ const NotePage = () => {
 
   const saveEditNote = async() => {
     $('#editSaveBtn').text("Saving")
-    await axios.post(`/.netlify/functions/updateNote?id=${editNoteId}`,
+    await axios.put(`/.netlify/functions/updateNote?id=${editNoteId}`,
             {title: editTitle, content: editContent}
         )
         .then(response =>{
@@ -115,7 +115,14 @@ const NotePage = () => {
 
         })
         .catch(err => {
-            console.log("err: ", err)
+            console.log("error ", error)
+            $('#editSaveBtn').text("Error")
+            fetchNotes()
+            hideNewNote()
+            hideViewNote()
+            $('#editTitle').val('')
+            $('#editContent').val('')
+            $('#editSaveBtn').text("Save")
 
         })
   }
