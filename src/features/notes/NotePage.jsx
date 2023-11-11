@@ -25,10 +25,12 @@ const NotePage = () => {
 
   const showNewNote = () => {
     $('#newNoteDiv').addClass('z-10').removeClass('z-[-10]').removeClass('hidden')
+    $('#notesDiv').addClass('hidden')
   }
 
   const hideNewNote = () => {
     $('#newNoteDiv').addClass('z-[-10]').addClass('hidden').removeClass('z-10')
+    $('#notesDiv').removeClass('hidden')
   }
 
   const fetchNotes = async() => {
@@ -43,13 +45,15 @@ const NotePage = () => {
   }
 
   const showNote = (event, note) => {
-    $('#viewNoteDiv').removeClass('z-[-10]').addClass('z-[10]').removeClass('hidden')
+    $('#viewNoteDiv').removeClass('z-[-10]').addClass('z-10').removeClass('hidden')
+    $('#notesDiv').addClass('hidden')
     $('#viewTitle').text(note.title)
     $('#viewContent').text(note.content)
   }
 
   const hideViewNote = () => {
     $('#viewNoteDiv').addClass('z-[-10]').addClass('hidden').removeClass('z-10')
+    $('#notesDiv').removeClass('hidden')
   }
 
   var canSave = Boolean(newTitle) && Boolean(newContent)
@@ -84,7 +88,7 @@ const NotePage = () => {
   return (
     <>
         <div className='relative flex flex-col w-screen min-h-screen bg-slate-100'>
-            <nav className="fixed flex top-0  w-full bg-slate-900 sm:px-[50px] px-0 z-0">
+            <nav className="fixed flex top-0  w-full bg-slate-900 sm:px-[50px] px-0 z-[5]">
                 <div className='flex w-full bg-green-0 justify-between items-center'>
                     <div className='sm:w-[200px] w-1/3 text-white sm:text-2xl text-xl px-[10px]  font-mono truncate'>
                         {user.name}
@@ -142,9 +146,9 @@ const NotePage = () => {
 
                 <div className='flex flex-col justify-between items-center sm:w-[500px] w-full sm:h-[600px] h-full bg-blue-400 py-5'>
                     <h1 className='text-3xl font-bold text-white font-mono'>Note</h1>
-                    <div className='p-[10px]'>
+                    <div className='flex flex-col items-center p-[15px] w-full'>
                         <div id="viewTitle" className='sm:w-[400px] w-full h-[50px] bg-white mb-5 p-5'></div>
-                        <div id="viewContent" className='sm:w-[400px] w-full h-[300px] bg-white p-5 overflow-y-scroll'></div>
+                        <div id="viewContent" className='sm:w-[400px] w-full sm:h-[300px] h-[250px] bg-white p-5 overflow-y-scroll'></div>
                     </div>
 
                     <div className='flex'>
@@ -161,7 +165,7 @@ const NotePage = () => {
 
                 <div className='flex flex-col justify-between items-center sm:w-[500px] w-full sm:h-[600px] h-full bg-blue-400 py-5'>
                     <h1 className='text-3xl font-bold text-white font-mono'>New Note</h1>
-                    <div>
+                    <div className='p-[15px]'>
                         <input id='title' onChange={onTitleChanged} type="text" className='border-[1px] border-slate-600 p-3 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-500 w-full mb-5' placeholder='Title'/>
                         <textarea id='content' onChange={onContentChanged} placeholder="Content..." className='border-[1px] border-slate-600 p-3 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-500 w-full' rows="15"></textarea>
                     </div>
