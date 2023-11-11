@@ -173,8 +173,8 @@ const NotePage = () => {
                     </div>
 
                     <ul className="flex sm:w-[390px] w-2/3 justify-between bg-blue-0">
-                        <li  onClick={showNewNote} className="text-xl text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[260px] pl-2">New Note+</li>
-                        <Link to="/login"><li className="text-xl text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[130px] px-5">Log out</li></Link>
+                        <li  onClick={showNewNote} className="sm:text-xl text-[16px] text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[260px] pl-2">New Note+</li>
+                        <Link to="/login"><li className="sm:text-xl text-[16px] text-center font-bold text-white hover:bg-blue-900 py-5 sm:w-[130px] px-5">Log out</li></Link>
                     </ul>
                 </div>
             </nav>
@@ -200,7 +200,7 @@ const NotePage = () => {
 
 
                 {/* Single Note */}
-                {/* <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
+                <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
                     <div onClick={event => showNote(event, {title:'Title', content:'This is content.'})} className='w-full h-[50px] text-[20px] p-[10px] font-mono truncate'>
                         This
                     </div>
@@ -208,17 +208,16 @@ const NotePage = () => {
                         <AiFillEdit className='text-3xl'/>
                         <RiDeleteBinLine className='text-3xl'/>
                     </div>
-                </div> */}
+                </div>
+                </div>
                 {/* End of Single Note */}
 
-             
-
-            </div>
+        
             {/* End of Notes div */}
 
 
             {/* New Note div */}
-            <div id='viewNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10]'>
+            <div id='viewNoteDiv' className='absolute flex justify-center items-center w-screen min-h-screen bg-slate-800 bg-opacity-80 z-[-10] hidden'>
 
                 <div className='flex flex-col justify-between items-center sm:w-[500px] w-full sm:h-[600px] h-full bg-blue-400 py-5'>
                     <h1 className='text-3xl font-bold text-white font-mono'>Note</h1>
@@ -238,7 +237,7 @@ const NotePage = () => {
             {/*End of New Note div */}
 
              {/* Delete Note div */}
-             <div id='deleteNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10]'>
+             <div id='deleteNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10] hidden'>
                 <div className='flex flex-col justify-between items-center sm:w-[300px] w-full h-[200px]  bg-white py-5 mx-5'>
                     <h1 className='text-3xl font-bold text-black font-mono'>Are you sure?</h1>
 
@@ -253,7 +252,7 @@ const NotePage = () => {
 
 
             {/* Note div */}
-            <div id='newNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 hidden z-[-10]'>
+            <div id='newNoteDiv' className='absolute flex justify-center items-center w-screen min-h-screen bg-slate-800 bg-opacity-80 z-[-10] hidden'>
 
                 <div className='flex flex-col justify-between items-center sm:w-[500px] w-full sm:h-[600px] h-full bg-blue-400 py-5'>
                     <h1 className='text-3xl font-bold text-white font-mono'>New Note</h1>
@@ -273,7 +272,7 @@ const NotePage = () => {
 
 
             {/* Edit Note div */}
-            <div id='editNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10]'>
+            <div id='editNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10] hidden'>
 
                 <div className='flex flex-col justify-between items-center sm:w-[500px] w-full sm:h-[600px] h-full bg-blue-400 py-5'>
                     <h1 className='text-3xl font-bold text-white font-mono'>Edit</h1>
