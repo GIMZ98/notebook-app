@@ -19,6 +19,7 @@ const Login = () => {
     var canLog = Boolean(username) && Boolean(password)
 
     const validate = async() => {
+        $('#submitbtn').text('Verifying ⏳')
         await axios.post('/.netlify/functions/login',
             {name:username, password:password}
         )
@@ -35,6 +36,7 @@ const Login = () => {
             navigate("/notes")
         })
         .catch(err => {
+            $('#submitbtn').text('Login')
             console.log("err: ", err)
             if(err.response.data.error == 'Not registered!'){
                 console.log("User not registered!",)
@@ -43,6 +45,7 @@ const Login = () => {
             if(err.response.data.error == 'user unauthorized'){
                 $('#notification').text('Wrong password!')
             }
+
 
         })
     }
