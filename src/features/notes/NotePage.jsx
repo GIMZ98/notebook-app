@@ -56,6 +56,8 @@ const NotePage = () => {
     $('#viewTitle').text(note.title)
     $('#viewContent').text(note.content)
     setCurrentNote(note)
+    setEditTitle(note.title)
+    setEditContent(note.content)
   }
 
   const hideViewNote = () => {
