@@ -36,7 +36,7 @@ const Login = () => {
             navigate("/notes")
         })
         .catch(err => {
-            $('#submitbtn').text('Login')
+            $('#submitBtn').text('Login')
             console.log("err: ", err)
             if(err.response.data.error == 'Not registered!'){
                 console.log("User not registered!",)
