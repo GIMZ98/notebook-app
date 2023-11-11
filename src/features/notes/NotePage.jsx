@@ -75,6 +75,14 @@ const NotePage = () => {
     $('#notesDiv').removeClass('hidden')
   }
 
+  const showDeleteDiv = () => {
+    $('#deleteNoteDiv').removeClass('z-[-10]').addClass('z-10').removeClass('hidden')
+  }
+
+  const hideDeleteDiv = () => {
+    $('#deleteNoteDiv').addClass('z-[-10]').addClass('hidden').removeClass('z-10')
+  }
+
   var canSave = Boolean(newTitle) && Boolean(newContent)
 
   const saveNote = async() => {
@@ -170,7 +178,7 @@ const NotePage = () => {
 
 
                 {/* Single Note */}
-                {/* <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
+                <div className='flex justify-between items-center sm:w-[600px] w-full h-[50px] bg-blue-100 border-b-2 border-black'>
                     <div onClick={event => showNote(event, {title:'Title', content:'This is content.'})} className='w-full h-[50px] text-[20px] p-[10px] font-mono truncate'>
                         This
                     </div>
@@ -178,7 +186,7 @@ const NotePage = () => {
                         <AiFillEdit className='text-3xl'/>
                         <RiDeleteBinLine className='text-3xl'/>
                     </div>
-                </div> */}
+                </div>
                 {/* End of Single Note */}
 
              
@@ -199,13 +207,28 @@ const NotePage = () => {
 
                     <div className='flex justify-between w-full sm:px-5 px-2'>
                         <button id='editBtn' onClick={showEditNote}  className='bg-blue-600 py-2 sm:px-8 px-5 text-white font-bold text-[16px] hover:bg-blue-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Edit</button>
-                        <button id='noteCloseBtn' onClick={hideViewNote} className='bg-red-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Delete</button>
+                        <button id='noteDeleteBtn' onClick={showDeleteDiv} className='bg-red-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Delete</button>
                         <button id='noteCloseBtn' onClick={hideViewNote} className='bg-slate-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-slate-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Close</button>
                     </div>
                 
                 </div>
             </div>
             {/*End of New Note div */}
+
+             {/* Delete Note div */}
+             <div id='deleteNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 z-[-10]'>
+                <div className='flex flex-col justify-between items-center sm:w-[300px] w-full h-[200px]  bg-white py-5 mx-5'>
+                    <h1 className='text-3xl font-bold text-black font-mono'>Are you sure?</h1>
+
+                    <div className='flex justify-center w-full sm:px-5 px-2'>
+                        <button id='noteDeleteBtn' className='bg-red-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none mx-5'>Delete</button>
+                        <button id='noteCloseBtn' onClick={hideDeleteDiv} className='bg-slate-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-slate-800 disabled:opacity-80 disabled:pointer-events-none mx-5'>Cancel</button>
+                    </div>
+
+                </div>
+            </div>
+            {/*End of Delete note div */}
+
 
             {/* Note div */}
             <div id='newNoteDiv' className='absolute flex justify-center items-center w-screen h-screen bg-slate-800 bg-opacity-80 hidden z-[-10]'>
