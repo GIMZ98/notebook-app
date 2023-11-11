@@ -17,7 +17,7 @@ const NotePage = () => {
   const [editTitle, setEditTitle] = useState('')
   const [editContent, setEditContent] = useState('')
   const [notes, setNotes] = useState([])
-  const [editNoteId, setEditNoteId] = useState('')
+  const [currntNote, setCurrentNote] = useState('')
 
   const onTitleChanged = (e) => setNewTitle(e.target.value)
   const onContentChanged = (e) => setNewContent(e.target.value)
@@ -55,6 +55,7 @@ const NotePage = () => {
     $('#notesDiv').addClass('hidden')
     $('#viewTitle').text(note.title)
     $('#viewContent').text(note.content)
+    setCurrentNote(note)
   }
 
   const hideViewNote = () => {
@@ -62,12 +63,11 @@ const NotePage = () => {
     $('#notesDiv').removeClass('hidden')
   }
 
-  const showEditNote = (event, note) => {
+  const showEditNote = () => {
     $('#editNoteDiv').removeClass('z-[-10]').addClass('z-10').removeClass('hidden')
     $('#notesDiv').addClass('hidden')
-    $('#editTitle').val(note.title)
-    $('#editContent').val(note.content)
-    setEditNoteId(note._id)
+    $('#editTitle').val(currntNote.title)
+    $('#editContent').val(currntNote.content)
   }
 
   const hideEditNote = () => {
@@ -100,7 +100,7 @@ const NotePage = () => {
 
   const saveEditNote = async() => {
     $('#editSaveBtn').text("Saving")
-    await axios.put(`/.netlify/functions/updateNote?id=${editNoteId}`,
+    await axios.put(`/.netlify/functions/updateNote?id=${currntNote._id}`,
             {title: editTitle, content: editContent}
         )
         .then(response =>{
@@ -200,7 +200,7 @@ const NotePage = () => {
                     </div>
 
                     <div className='flex justify-between w-full sm:px-5 px-2'>
-                        <button id='editBtn' onClick={event => showEditNote(event, {title:'Title', content:'This is content.'})}  className='bg-blue-600 py-2 sm:px-8 px-5 text-white font-bold text-[16px] hover:bg-blue-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Edit</button>
+                        <button id='editBtn' onClick={showEditNote}  className='bg-blue-600 py-2 sm:px-8 px-5 text-white font-bold text-[16px] hover:bg-blue-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Edit</button>
                         <button id='noteCloseBtn' onClick={hideViewNote} className='bg-red-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-red-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Delete</button>
                         <button id='noteCloseBtn' onClick={hideViewNote} className='bg-slate-600 py-2 sm:px-5 px-5 text-white font-bold text-[16px] hover:bg-slate-800 disabled:opacity-80 disabled:pointer-events-none sm:mx-5'>Close</button>
                     </div>
