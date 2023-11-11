@@ -17,7 +17,7 @@ const NotePage = () => {
   const [editTitle, setEditTitle] = useState('')
   const [editContent, setEditContent] = useState('')
   const [notes, setNotes] = useState([])
-  const [currntNote, setCurrentNote] = useState('')
+  const [currentNote, setCurrentNote] = useState('')
 
   const onTitleChanged = (e) => setNewTitle(e.target.value)
   const onContentChanged = (e) => setNewContent(e.target.value)
@@ -66,8 +66,8 @@ const NotePage = () => {
   const showEditNote = () => {
     $('#editNoteDiv').removeClass('z-[-10]').addClass('z-10').removeClass('hidden')
     $('#notesDiv').addClass('hidden')
-    $('#editTitle').val(currntNote.title)
-    $('#editContent').val(currntNote.content)
+    $('#editTitle').val(currentNote.title)
+    $('#editContent').val(currentNote.content)
   }
 
   const hideEditNote = () => {
@@ -100,14 +100,14 @@ const NotePage = () => {
 
   const saveEditNote = async() => {
     $('#editSaveBtn').text("Saving")
-    await axios.put(`/.netlify/functions/updateNote?id=${currntNote._id}`,
+    await axios.put(`/.netlify/functions/updateNote?id=${currentNote._id}`,
             {title: editTitle, content: editContent}
         )
         .then(response =>{
             console.log("response", response)
             $('#editSaveBtn').text("Saved")
             fetchNotes()
-            hideNewNote()
+            hideEditNote()
             hideViewNote()
             $('#title').val('')
             $('#content').val('')
@@ -118,7 +118,7 @@ const NotePage = () => {
             console.log("error ", error)
             $('#editSaveBtn').text("Error")
             fetchNotes()
-            hideNewNote()
+            hideEditNote()
             hideViewNote()
             $('#editTitle').val('')
             $('#editContent').val('')
