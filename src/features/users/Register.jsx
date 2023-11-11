@@ -18,6 +18,7 @@ const Register = () => {
     var canReg = Boolean(username) && Boolean(password)
 
     const validate = async() => {
+        $('#submitBtn').text('Registering ⏳')
         await axios.post('/.netlify/functions/createUser',
             {name:username, password:password}
         )
@@ -32,6 +33,7 @@ const Register = () => {
             navigate("/notes")
         })
         .catch(err => {
+            $('#submitBtn').text('Register')
             console.log("err: ", err)
             if(err.response.data.message == 'A user with that username already exits'){
                 console.log("A user with that username already exits",)
