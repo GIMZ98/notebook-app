@@ -1,6 +1,6 @@
 var Userdb = require('./models/user.cjs');
 const argon2 = require('argon2');
-const { connect, close } = require('./database/connection.cjs')
+const { connect, close } = require('./database/connection.cjs');
 
 exports.handler = async (event, context)=>{
     try{
@@ -9,7 +9,7 @@ exports.handler = async (event, context)=>{
 
         if (httpMethod != 'POST'){
             return{
-                statusCode: 500,
+                statusCode: 405,
                 body: JSON.stringify({message: "Wrong method!"})
             }  
         }
@@ -22,28 +22,30 @@ exports.handler = async (event, context)=>{
         const password_ = body.password
 
         var hashPassword = '';
+        var userId = '';
 
 
         try{
             const user = await Userdb.findOne({ name: username_});
-            hashPassword = user.password
+            hashPassword = user.password;
+            userId = user._id;
         }
         catch(err){
             return{
-                statusCode: 500,
+                statusCode: 403,
                 body: JSON.stringify({error:'Not registered!'})
             } 
         }
 
         if(await verifyPassword(hashPassword, password_)){
             return{
-                statusCode: 500,
-                body: JSON.stringify({success:'user verified'})
+                statusCode: 200,
+                body: JSON.stringify({success:'user verified', userId: userId})
             } 
         }
         else{
             return{
-                statusCode: 500,
+                statusCode: 403,
                 body: JSON.stringify({error:'user unauthorized'})
             } 
         }

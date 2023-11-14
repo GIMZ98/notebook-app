@@ -1,6 +1,8 @@
 [build]
   functions = "functions/"
+  command = "npm run build"  # The build command for your Vite project
+  publish = "dist"           # The directory to deploy (output directory after build)
 [[redirects]]
   from = '/*'
-  to = '/.netlify/functions/:splat'
+  to = '/index.html'
   status = 200
