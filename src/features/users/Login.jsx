@@ -20,7 +20,8 @@ const Login = () => {
 
     const validate = async() => {
         $('#submitBtn').text('Verifying ⏳')
-        await axios.post('/.netlify/functions/login',
+        await axios.post('https://d2g049h4b2.execute-api.us-east-1.amazonaws.com/login',
+        //await axios.post('/.netlify/functions/login',
             {name:username, password:password}
         )
         .then(response =>{
