@@ -24,7 +24,7 @@ const Login = () => {
             {name:username, password:password}
         )
         .then(response =>{
-            console.log("response ", response)
+            //console.log("response ", response)
             dispatch(
                 setUser(
                     {
@@ -37,9 +37,9 @@ const Login = () => {
         })
         .catch(err => {
             $('#submitBtn').text('Login')
-            console.log("err: ", err)
+            //console.log("err: ", err)
             if(err.response.data.error == 'Not registered!'){
-                console.log("User not registered!",)
+                //console.log("User not registered!",)
                 $('#notification').text('User not exists!')
             }
             if(err.response.data.error == 'user unauthorized'){
