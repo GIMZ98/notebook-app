@@ -19,8 +19,7 @@ const Register = () => {
 
     const validate = async() => {
         $('#submitBtn').text('Registering ⏳')
-        await axios.post('https://d2g049h4b2.execute-api.us-east-1.amazonaws.com/createUser',
-        //await axios.post('/.netlify/functions/createUser',
+        await axios.post('/.netlify/functions/createUser',
             {name:username, password:password}
         )
         .then(response =>{

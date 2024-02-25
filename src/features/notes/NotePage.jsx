@@ -38,8 +38,7 @@ const NotePage = () => {
 
   // fetch all notes of a certain user
   const fetchNotes = async() => {
-    await axios.get(`https://d2g049h4b2.execute-api.us-east-1.amazonaws.com/userNotes?id=${user.userId}`)
-    //await axios.get(`/.netlify/functions/userNotes?id=${user.userId}`)
+    await axios.get(`/.netlify/functions/userNotes?id=${user.userId}`)
     .then(response =>{
         setNotes(response.data)
         setDataLoaded(true)
@@ -97,8 +96,7 @@ const NotePage = () => {
   // Saves a new note
   const saveNote = async() => {
     $('#submitBtn').text("Saving")
-    await axios.post('https://d2g049h4b2.execute-api.us-east-1.amazonaws.com/newNote',
-    //await axios.post('/.netlify/functions/newNote',
+    await axios.post('/.netlify/functions/newNote',
             {userId: user.userId, title: newTitle, content: newContent}
         )
         .then(response =>{
@@ -121,8 +119,7 @@ const NotePage = () => {
   // Updates an existing note
   const saveEditNote = async() => {
     $('#editSaveBtn').text("Saving")
-    await axios.put(`https://d2g049h4b2.execute-api.us-east-1.amazonaws.com/updateNote?id=${currentNote._id}`,
-    //await axios.put(`/.netlify/functions/updateNote?id=${currentNote._id}`,
+    await axios.put(`/.netlify/functions/updateNote?id=${currentNote._id}`,
             {title: editTitle, content: editContent}
         )
         .then(response =>{
@@ -135,7 +132,6 @@ const NotePage = () => {
             $('#title').val('')
             $('#content').val('')
             $('#editSaveBtn').text("Save")
-
         })
         .catch(err => {
             //console.log("error ", err)
@@ -153,8 +149,7 @@ const NotePage = () => {
   // Deletes a note when the note id is provided
   const deleteNote = async() => {
     $('#deleteBtn').text("Deleting ⏳")
-    await axios.delete(`https://d2g049h4b2.execute-api.us-east-1.amazonaws.com/deleteNote?id=${currentNote._id}`,
-    //await axios.delete(`/.netlify/functions/deleteNote?id=${currentNote._id}`,
+    await axios.delete(`/.netlify/functions/deleteNote?id=${currentNote._id}`,
         )
         .then(response =>{
             //console.log("response", response)
