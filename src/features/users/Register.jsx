@@ -24,7 +24,7 @@ const Register = () => {
             {name:username, password:password}
         )
         .then(response =>{
-            console.log("response", response.data.success._id)
+            //console.log("response", response.data.success._id)
             dispatch(
                 setUser({
                     name: username,
@@ -37,7 +37,7 @@ const Register = () => {
             $('#submitBtn').text('Register')
             console.log("err: ", err)
             if(err.response.data.message == 'A user with that username already exits'){
-                console.log("A user with that username already exits",)
+                //console.log("A user with that username already exits",)
                 $('#notification').text('A user with that username already exits!')
             }
 
